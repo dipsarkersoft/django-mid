@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+
+
+
+<div class="card m-5" style="max-width: 840px; height:450px">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <img src="{{data.image.url}}" class="img-fluid rounded-start" alt="...">
+      </div>
+
+      <div class="col-md-6 ">
+        <div class="card-body">
+          <h5 class="card-title">{{data.name}}</h5>
+          <p class="card-text ">{{data.description}}</p>
+          <p class="card-text fw-bold fs-3">Quantity :: {{data.quantity}}</p>
+          <p class="card-text fw-bold fs-3">Price :: {{data.price}}</p>
+          <p class="card-text fw-bold fs-3">Brand :: {{data.brand.name}}</p>
+          
+          <a class='btn btn-success' href="{% url 'buy_car' data.id %}" > 
+            {% if user.is_authenticated %}
+            BUY NOW
+
+            {% else %}
+            Login
+
+            {% endif %}
+
+
+             </a>
+          
+          {% comment %} <a class='btn btn-danger' href="{% url 'login' %}" > Login </a> {% endcomment %}
+
+          
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  {% if messages %}
+{% for m in messages %}
+  <small class="bg-danger text-white p-3 m-5" >{{m}}</small>
+{% endfor %}
+{% endif %}
+
+ <div class="col-md-8 m-5">
+
+  <div>
+    <h2>Comments</h2>
+
+    {% if comments %}
+    
+    <div class="card m-2">
+      <h5 class="p-3">Total Comments : {{comments | length}}</h5>
+      {% for comment in comments %}
+      <div class="card-body border m-2">
+        <p><b>{{comment.name}}</b> 
+          
+          <p> Commented on : {{comment.created_on}}</p>
+        <p>{{comment.body}}</p>
+      </div>
+      {% endfor %}
+    </div>
+    
+    
+    {% else %}
+     <p>NO Comment</p>
+
+    {% endif %}
+
+
+<!-- Comment form -->
+
+
+<h3>Leave a comment:</h3>
+<div class="card m-2" >
+  <div class="card-body">
+      <form method="post">
+          <h1>Add Comment</h1>
+          {% csrf_token %}
+          {{form | crispy}}
+
+          <button class="btn btn-warning">Submit</button>
+  </div>
+</div>
+
+ 
+
+  </div>
+  
+
+
+
+
+
+
+
+{%  endblock %}
+

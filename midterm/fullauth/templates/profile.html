@@ -1,0 +1,38 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %} 
+{% block content %} 
+
+
+{% if messages %} 
+{% for m in messages %}
+<small class="bg-success text-white p-3">{{m}}</small>
+{% endfor %} 
+{% endif %}
+
+<div class="container">
+  <h3 class="text-center">welcome {{user}}</h3>
+</div>
+
+<div class="container mt-4">
+  
+  <ul class="nav nav-underline bg-success p-2" >
+    <a class="nav-link text-white fs-5 fw-bold me-2 active"  href="{% url 'allorder' %}" >MyOrder</a>
+   
+   
+    <li class="nav-item" role="presentation">
+      <a class="nav-link text-white fs-5 fw-bold me-2" href="{% url 'editProfile' %}" >EditProfile</a>
+   </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link text-white fs-5 fw-bold me-2" href="{% url 'passChange' %}" >ChangePassword</a>
+   </li>
+   
+ 
+  </ul>
+
+
+
+
+
+  
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %} 
+{% block content %} 
+
+<h3>My Orders</h3>
+        
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">OrderID</th>
+      <th scope="col">Image</th>
+      <th scope="col">CarName</th>
+      <th scope="col">CarBrand</th>
+      <th scope="col">TotalPrice</th>
+      <th scope="col">Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for iteam in data  %}
+     
+    <tr>
+      <th scope="row">{{iteam.id}}</th>
+      <td>
+
+        <img style="width: 40px; height: 40px;" src="{{iteam.car.image.url}}" alt="">
+      </td>
+      <td>{{iteam.car.name}}</td>
+      <td>{{iteam.car.brand}}</td>
+      <td>{{iteam.total_price}}</td>
+      <td>{{iteam.quantity}}</td>
+    <tr>
+   {% endfor %}   
+   
+  </tbody>
+</table>
+
+</div>
+
+
+
+{% endblock %}

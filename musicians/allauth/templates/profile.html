@@ -1,0 +1,79 @@
+
+{% extends "base.html" %}
+
+{%  load crispy_forms_tags %}
+{% block content %}
+
+{% if messages %}
+{% for m in messages %}
+  <small class="bg-success text-white p-3" >{{m}}</small>
+{% endfor %}
+{% endif %}
+
+<div class="container">
+
+    <h3 class="text-center">welcome {{user}}</h3>
+</div>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Musician Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Album Rating</th>
+      <th scope="col">Instrument Type</th>
+      <th scope="col">Album Name</th>
+      <th scope="col">Release Date</th>
+      {% if user.is_authenticated %}
+
+      <th scope="col">Actions</th>
+
+      {% else %}
+      {% endif %}
+    </tr>
+  </thead>
+  <tbody>
+      {% for res in data %}
+      
+    <tr>
+      <th scope="row">{{res.id}}</th>
+      <td >
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'edit_musicians' res.id %}">{{res.musician_name.first_name}} </a>
+      
+      </td>
+        {% else %}
+        <a >{{res.musician_name.first_name}} </a> </td>
+        {% endif %}
+         
+      <td>{{res.musician_name.email}}</td>
+      <td>{{res.ratings}}</td>
+      <td>{{res.musician_name.instrument_type}}</td>
+      <td>{{res.album_name}}</td>
+      <td>{{res.album_relese_date}}</td>
+
+
+      {% if user.is_authenticated %}
+      <td>
+        <a href="{% url 'edit_albums' res.id %}" class="btn btn-success">Edit</a>
+        <a href="{% url 'del_albums' res.id %}" class="btn btn-danger">Del</a>
+      </td>
+      {% else %}
+      {% endif %}
+
+      
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+   
+
+
+
+
+{% endblock  %}
